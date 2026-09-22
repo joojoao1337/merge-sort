@@ -1,25 +1,25 @@
 #include <iostream>
 #include <vector>
 
-// Merges two sorted sub-vectors into a single sorted sub-vector
+// Combina dois subvetores ordenados em um único subvetor ordenado
 void merge(std::vector<int>& arr, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
-    // Create temporary vectors to hold the split data
+    // Cria vetores temporários para armazenar os dados divididos
     std::vector<int> L(n1);
     std::vector<int> R(n2);
 
-    // Copy data to temporary vectorsain
+    // Copia os dados para os vetores temporários
     for (int i = 0; i < n1; i++)
         L[i] = arr[left + i];
     for (int j = 0; j < n2; j++)
         R[j] = arr[mid + 1 + j];
 
-    // Merge the temporary vectors back into the original vector
-    int i = 0; // Initial index of first sub-vector
-    int j = 0; // Initial index of second sub-vector
-    int k = left; // Initial index of merged sub-vector
+    // Combina os vetores temporários de volta no vetor original
+    int i = 0; // Índice inicial do primeiro subvetor
+    int j = 0; // Índice inicial do segundo subvetor
+    int k = left; // Índice inicial do subvetor combinado
 
     while (i < n1 && j < n2) {
         if (L[i] <= R[j]) {
@@ -32,14 +32,14 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
         k++;
     }
 
-    // Copy remaining elements of L[], if any
+    // Copia os elementos restantes de L[], se houver algum
     while (i < n1) {
         arr[k] = L[i];
         i++;
         k++;
     }
 
-    // Copy remaining elements of R[], if any
+    // Copia os elementos restantes de R[], se houver algum
     while (j < n2) {
         arr[k] = R[j];
         j++;
@@ -47,23 +47,23 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
     }
 }
 
-// Main function that implements Merge Sort recursively
+// Função principal que implementa o Merge Sort recursivamente
 void mergeSort(std::vector<int>& arr, int left, int right) {
     if (left >= right) {
-        return; // Base case: 1 or 0 elements
+        return; // Caso base: 1 ou 0 elementos
     }
     
-    int mid = left + (right - left) / 2; // Prevents overflow for large indices
+    int mid = left + (right - left) / 2; // Previne estouro de memória (overflow) para índices grandes
 
-    // Sort first and second halves
+    // Ordena a primeira e a segunda metade
     mergeSort(arr, left, mid);
     mergeSort(arr, mid + 1, right);
 
-    // Merge the sorted halves
+    // Combina as metades ordenadas
     merge(arr, left, mid, right);
 }
 
-// Utility function to print the vector
+// Função utilitária para imprimir o vetor
 void printVector(const std::vector<int>& arr) {
     for (int num : arr) {
         std::cout << num << " ";
@@ -77,7 +77,7 @@ int main() {
     std::cout << "Original array: ";
     printVector(data);
 
-    // Run Merge Sort
+    // Executa o Merge Sort
     mergeSort(data, 0, data.size() - 1);
 
     std::cout << "Sorted array:   ";
